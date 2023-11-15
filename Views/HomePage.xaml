@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="alkan_task.Views.HomePage"
+             xmlns:viewmodels="clr-namespace:alkan_task.ViewModels"
+             xmlns:country="clr-namespace:CountryData.Standard;assembly=CountryData.Standard"
+             x:DataType="{x:Type viewmodels:MainViewModel}"
+             Title="Home">
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout Padding="20" Spacing="10">
+        <SearchBar Placeholder="Search City..."
+                   IsTextPredictionEnabled="True"
+                   BackgroundColor="LightGray"
+                   x:Name="searchBar"
+                   SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                   SearchCommand="{Binding SearchCityCommand}"
+                   />
+        <Label Text="Country" />
+        <Frame Padding="10">
+            <Picker Title="Select Country"
+                    TitleColor="Black"
+                    x:Name="countryPicker"
+                    ItemsSource="{Binding Countries}"
+                    VerticalOptions="Start"
+                    SelectedIndexChanged="Country_Selected"
+                    ItemDisplayBinding="{Binding CountryName}">
+            </Picker>
+        </Frame>
+        <FlexLayout Wrap="Wrap">
+            <Label FlexLayout.Basis="50%">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="City: " />
+                        <Span Text="{Binding SelectedCity}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FlexLayout.Basis="50%">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Temperature: " />
+                        <Span Text="{Binding SelectedCountry.Temperature}" />
+                        <Span Text=" °C" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FlexLayout.Basis="50%">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Humidity: " />
+                        <Span Text="{Binding SelectedCountry.Humidity}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label FlexLayout.Basis="50%">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Wind Speed: " />
+                        <Span Text="{Binding SelectedCountry.WindSpeed}" />
+                        <Span Text=" Kph" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Weather Condition: " />
+                        <Span Text="{Binding SelectedCountry.WeatherCondition}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </FlexLayout>
+        <Button Text="Forecast"
+                Margin="10"
+                Pressed="City_Forecast">
+            <Button.Triggers>
+                <DataTrigger Binding="{Binding SelectedCity}" TargetType="Button"
+                             Value="">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+    </StackLayout>
+</ContentPage>

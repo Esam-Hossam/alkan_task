@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:alkan_task.ViewModels"
+             x:Class="alkan_task.Views.ForecastPage">
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding Forecast}" Padding="20"
+                             Spacing="50">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <FlexLayout Wrap="Wrap">
+                        <Label FlexLayout.Basis="100%"
+                               HorizontalOptions="Center"
+                               Text="{Binding Date}"
+                               FontSize="Medium" />
+                        <Label FlexLayout.Basis="50%">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Temperature: " />
+                                    <Span Text="{Binding Temperature}" />
+                                    <Span Text=" °C" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label FlexLayout.Basis="50%">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Humidity: " />
+                                    <Span Text="{Binding Humidity}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label FlexLayout.Basis="50%">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Wind Speed: " />
+                                    <Span Text="{Binding WindSpeed}" />
+                                    <Span Text=" Kph" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Weather Condition: " />
+                                    <Span Text="{Binding WeatherCondition}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </FlexLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
